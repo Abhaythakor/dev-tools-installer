@@ -176,11 +176,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📚 Documentation
 
-For more detailed documentation:
-- [Configuration Guide](docs/configuration.md)
-- [Installation Methods](docs/installation.md)
-- [Version Detection](docs/versions.md)
-- [Contributing Guide](CONTRIBUTING.md)
+
 
 ## 🐛 Troubleshooting
 
