@@ -1,0 +1,71 @@
+# List of tools to check
+tool_list:
+  - go
+  - amass
+  - subfinder
+  - assetfinder
+
+tools:
+  go:
+    dependencies: []
+    version: "1.23.3"
+    methods:
+      - name: official binary
+        commands:
+          - wget https://go.dev/dl/go${version}.linux-amd64.tar.gz
+          - sudo rm -rf /usr/local/go
+          - sudo tar -C /usr/local -xzf go${version}.linux-amd64.tar.gz
+          - rm go${version}.linux-amd64.tar.gz
+          - |
+            if ! grep -q "/usr/local/go/bin" ~/.bashrc; then
+              echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc
+              source ~/.bashrc
+            fi
+      - name: apt
+        commands:
+          - sudo apt-get update
+          - sudo apt-get install -y golang-go
+      - name: snap
+        commands:
+          - sudo snap install go --classic
+ 
+  amass:
+    dependencies: ["go"]
+    methods:
+      - name: go
+        commands:
+          - go install -v github.com/owasp-amass/amass/v4/...@master
+      - name: apt
+        commands:
+          - sudo apt update
+          - sudo apt install -y amass
+    
+  subfinder:
+    dependencies: ["go"]
+    methods:
+      - name: go
+        commands:
+          - go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
+      - name: apt
+        commands:
+          - sudo apt update
+          - sudo apt install -y subfinder
+  assetfinder:
+    dependencies: ["go"]
+    version: "v0.1.1"
+    methods:
+      - name: go
+        commands:
+          - go install -v github.com/tomnomnom/assetfinder@latest
+      - name: apt
+        commands:
+          - sudo apt update
+          - sudo apt install -y assetfinder
+
+  default:
+    dependencies: []
+    methods:
+      - name: apt
+        commands:
+          - sudo apt update
+          - sudo apt install -y ${TOOL_NAME}
